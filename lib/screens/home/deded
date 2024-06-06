@@ -1,0 +1,286 @@
+import 'package:dassi/utils/Utils.dart';
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import '../transactions/transaction_model.dart';
+import '../carte_screen.dart';
+import '../facture_screen.dart';
+import '../numero_virtuel_screen.dart';
+import '../banque_screen.dart';
+import '../depot_screen.dart';
+import '../envoie_screen.dart';
+import '../retrait_screen.dart';
+import '../mobile_screen.dart';
+
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
+  @override
+  // ignore: library_private_types_in_public_api
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  
+  double walletBalance = 90000; // Initial balance in XOF
+  String selectedCurrency = 'XOF';
+  final NumberFormat xofFormat = NumberFormat.currency(locale: 'fr_FR', symbol: 'XOF ');
+  final NumberFormat usdFormat = NumberFormat.currency(locale: 'en_US', symbol: '\$');
+  final NumberFormat eurFormat = NumberFormat.currency(locale: 'fr_FR', symbol: '€');
+  final NumberFormat gbpFormat = NumberFormat.currency(locale: 'en_GB', symbol: '£');
+  final double xofToUsdRate = 0.0016; // Replace with the actual conversion rate
+  final double xofToEurRate = 0.0015; // Replace with the actual conversion rate
+  final double xofToGbpRate = 0.0013;
+
+  List<TransactionModel> recentTransactions = [
+    TransactionModel(
+      title: 'Achat de crédit Airtime',
+      date: '24 avril 2024',
+      recipient: 'Orange',
+      amount: 500.0,
+    ),
+    TransactionModel(
+      title: 'Recharge de carte de crédit',
+      date: '24 avril 2024',
+      recipient: 'Visa **** **** **** 1586',
+      amount: 17900.0,
+    ),
+    TransactionModel(
+      title: 'Dépôt sur votre compte',
+      date: '24 avril 2024',
+      recipient: 'eWallet',
+      amount: 16000.0,
+    ),
+  ];
+
+  void _handleCurrencyChange(String? newValue) {
+    setState(() {
+      selectedCurrency = newValue!;
+      // Convert the wallet balance based on the selected currency
+      if (selectedCurrency == 'XOF') {
+        walletBalance = 90000; // Reset to the initial XOF balance
+      } else if (selectedCurrency == 'USD') {
+        walletBalance = 90000 * xofToUsdRate;
+      } else if (selectedCurrency == 'EUR') {
+        walletBalance = 90000 * xofToEurRate;
+      } else if (selectedCurrency == 'GBP') {
+        walletBalance = 90000 * xofToGbpRate;
+      }
+    });
+  }
+
+  void _handleIconButtonPress(String screen) async {
+    switch (screen) {
+      case 'Carte':
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const CarteScreen()),
+        );
+        break;
+      case 'Facture':
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const FactureScreen()),
+        );
+        break;
+      case 'N° Virtuel':
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const NumeroVirtuelScreen()),
+        );
+        break;
+      case 'Banque':
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const BanqueScreen()),
+        );
+        break;
+      case 'Dépôt':
+        final double? depositAmount = await Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const DepotScreen()),
+        );
+        if (depositAmount != null) {
+          setState(() {
+            walletBalance += depositAmount;
+          });
+        }
+        break;
+      case 'Envoie':
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const EnvoieScreen()),
+        );
+        break;
+      case 'Retrait':
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const RetraitScreen()),
+        );
+        break;
+      case 'Mobile':
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const MobileScreen()),
+        );
+        break;
+      case 'Home':
+        // No need to navigate, as we're already on the home screen
+        break;
+      case 'Money':
+        // Handle the 'Money' screen navigation
+        break;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: primaryColor,
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'eWallet',
+                  style: TextStyle(
+                    fontSize: 15.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      _formatWalletBalance(walletBalance, selectedCurrency),
+                      style: const TextStyle(
+                        fontSize: 24.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    DropdownButton<String>(
+                      value: selectedCurrency,
+                      items: <String>['XOF', 'USD', 'EUR', 'GBP']
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                      onChanged: _handleCurrencyChange,
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 20,),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                _buildIconButton('Dépôt', Icons.account_balance_wallet),
+                _buildIconButton('Envoie', Icons.send),
+                _buildIconButton('Retrait', Icons.swap_vert),
+                _buildIconButton('Mobile', Icons.phone_android),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                _buildIconButton('Carte', Icons.credit_card),
+                _buildIconButton('Facture', Icons.receipt),
+                _buildIconButton('N° Virtuel', Icons.smartphone),
+                _buildIconButton('Banque', Icons.account_balance),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'Transactions récentes',
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 8.0),
+                Column(
+                  children: recentTransactions
+                      .map(
+                        (transaction) => ListTile(
+                          title: Text(transaction.title),
+                          subtitle: Text(
+                              '${transaction.date} - ${transaction.recipient}'),
+                          trailing: Text(transaction.amount.toStringAsFixed(2)),
+                        ),
+                      )
+                      .toList(),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+      bottomNavigationBar: BottomAppBar(
+  child: Row(
+    mainAxisAlignment: MainAxisAlignment.spaceAround,
+    children: [
+      IconButton(
+        icon: const Icon(Icons.home),
+        onPressed: () {
+          _handleIconButtonPress('Home');
+        },
+      ),
+      IconButton(
+        icon: const Icon(Icons.attach_money),
+        onPressed: () {
+          _handleIconButtonPress('Money');
+        },
+      ),
+    ],
+  ),
+),
+    );
+  }
+
+  String _formatWalletBalance(double balance, String currency) {
+    switch (currency) {
+      case 'XOF':
+        return xofFormat.format(balance);
+      case 'USD':
+        return usdFormat.format(balance);
+      case 'EUR':
+        return eurFormat.format(balance);
+      case 'GBP':
+        return gbpFormat.format(balance);
+      default:
+        return balance.toStringAsFixed(2);
+    }
+  }
+
+  Widget _buildIconButton(String label, IconData icon) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        IconButton(
+          icon: Icon(icon),
+          onPressed: () {
+            _handleIconButtonPress(label);
+          },
+        ),
+        const SizedBox(height: 4.0),
+        Text(label),
+      ],
+    );
+  }
+}

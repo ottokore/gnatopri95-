@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "16011012360",
+    "project_id": "dassi-2a557",
+    "storage_bucket": "dassi-2a557.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:16011012360:android:dd76f3a3900754dab564bd",
+        "android_client_info": {
+          "package_name": "com.example.dassi"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDHikMidyKA0f0HnLmQprxlRsKwopNHB3s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

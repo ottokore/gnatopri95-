@@ -1,0 +1,111 @@
+{
+    "Sénégal": [
+        "Banque Atlantique Sénégal",
+        "Banque de l'Habitat du Sénégal",
+        "Banque Islamique du Sénégal",
+        "Banque Régionale de Solidarité",
+        "BSIC",
+        "Société Générale de Banques au Sénégal",
+        "Caisse Nationale de Crédit Agricole du Sénégal"
+    ],
+    "Côte d'Ivoire": [
+        "Banque Atlantique",
+        "BICICI",
+        "BNI",
+        "Banque Populaire",
+        "Société Ivoirienne de Banque",
+        "Société Générale",
+        "Coris Bank International",
+        "NSIA Banque"
+    ],
+    "Cameroun": [
+        "Banque Camerounaise des PME",
+        "BICEC",
+        "Commercial Bank Cameroun",
+        "Ecobank Cameroun",
+        "National Financial Credit Bank",
+        "Société Commerciale de Banque",
+        "Union Bank of Cameroon"
+    ],
+    "Burkina Faso": [
+        "Banque Agricole du Burkina",
+        "Banque Commerciale du Burkina",
+        "Banque de Développement du Burkina",
+        "Banque de l'Habitat du Burkina Faso",
+        "BICIB",
+        "Banque Nationale de Développement Économique",
+        "Coris Bank International Burkina Faso"
+    ],
+    "Mali": [
+        "Banque Commerciale du Sahel",
+        "Banque de Développement du Mali",
+        "BICIM",
+        "Banque Malienne de Solidarité",
+        "BNDA",
+        "Banque Régionale de Solidarité",
+        "Orabank Mali"
+    ],
+    "Bénin": [
+        "Banque de l'Habitat du Bénin",
+        "BICIB",
+        "Diamond Bank Bénin",
+        "Ecobank Bénin",
+        "Orabank Bénin",
+        "Société Générale de Banques au Bénin",
+        "Union Bank for Africa Bénin"
+    ],
+    "Togo": [
+        "Banque Atlantique Togo",
+        "BDEAC",
+        "Banque Internationale pour l'Afrique au Togo",
+        "Ecobank Togo",
+        "Orabank Togo",
+        "Union Bank for Africa Togo",
+        "United Bank for Africa Togo"
+    ],
+    "Guinée": [
+        "Banque Centrale Populaire",
+        "BICIG",
+        "Ecobank Guinée",
+        "Orabank Guinée",
+        "Société Générale de Banques en Guinée",
+        "Union Bank for Africa Guinée",
+        "United Bank for Africa Guinée"
+    ],
+    "Gabon": [
+        "Banque Gabonaise de Développement",
+        "BICIG",
+        "Ecobank Gabon",
+        "Orabank Gabon",
+        "Société Générale Gabon",
+        "Union Gabonaise de Banque",
+        "United Bank for Africa Gabon"
+    ],
+    "République Centrafricaine": [
+        "Banque Commerciale Centrafricaine",
+        "Banque Populaire Maroco-Centrafricaine",
+        "Commercial Bank Centrafrique",
+        "Ecobank Centrafrique",
+        "Orabank Centrafrique",
+        "Société Générale Centrafrique",
+        "Union Bank for Africa Centrafrique"
+    ],
+    "Congo": [
+        "Banque Commerciale Congolaise",
+        "Banque Congolaise de l'Habitat",
+        "Banque Internationale pour le Congo",
+        "Ecobank Congo",
+        "La Congolaise de Banque",
+        "Orabank Congo",
+        "Union Bank for Africa Congo"
+    ],
+    "Mauritanie": [
+        "Banque El Amana pour le Commerce et l'Industrie",
+        "Banque Nationale de Mauritanie",
+        "Banque Populaire de l'Espoir",
+        "Banque pour le Commerce et l'Industrie - Mer Rouge",
+        "Mauritanienne pour le Commerce et l'Industrie",
+        "Société Générale Mauritanie",
+        "Wafa Bank Mauritanie"
+    ]
+}

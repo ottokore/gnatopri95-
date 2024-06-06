@@ -1,0 +1,65 @@
+import 'package:dassi/screens/home/details/amount_widget.dart';
+import 'package:dassi/screens/home/details/bottom_navigation.dart';
+import 'package:dassi/screens/home/details/home_payments.dart';
+import 'package:dassi/utils/utils.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart'; // Importer le package systems
+import 'package:dassi/screens/home/details/header.dart';
+
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
+  @override
+  // ignore: library_private_types_in_public_api
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  Widget build(BuildContext context) {
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent, // Fond de la barre de statut transparent
+        statusBarIconBrightness: Brightness.light, // Icônes de la barre de statut en blanc
+      ),
+      child: Scaffold(
+        backgroundColor: primaryColor,
+        extendBody: true,
+        body: Column(
+          children: [
+            const HeaderScreen(),
+            SingleChildScrollView(
+              child: Column(
+                children: [
+                  const AmountWidget(),
+                  Expanded(
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        color: bgColor,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(30),
+                          topRight: Radius.circular(30),
+                        ),
+                      ),
+                      child: const Padding(
+                        padding: EdgeInsets.only(top: 25.0),
+                        child: Column(
+                          children: [
+                            // Ajout de HomePayments
+                            HomePayments(),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ) ,
+            ),
+            
+          ],
+        ),
+        bottomNavigationBar: const BottomNavigation(),
+      ),
+    );
+  }
+}

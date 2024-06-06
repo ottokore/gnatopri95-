@@ -1,0 +1,100 @@
+import 'package:dassi/auth/user_model.dart';
+import 'package:dassi/screens/welcome.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+class CustomDrawer extends StatefulWidget {
+  const CustomDrawer({super.key});
+
+  @override
+  _CustomDrawerState createState() => _CustomDrawerState();
+}
+
+class _CustomDrawerState extends State<CustomDrawer> {
+  bool _isDarkMode = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final userModel = Provider.of<UserModel>(context);
+    final brightness = _isDarkMode ? Brightness.dark : Brightness.light;
+
+    return Drawer(
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          UserAccountsDrawerHeader(
+            accountName: Center(
+              child: Text(
+                '${userModel.firstName} ${userModel.name}',
+                style: TextStyle(color: brightness == Brightness.dark ? Colors.white : Colors.black),
+              ),
+            ),
+            accountEmail: Center(
+              child: Text(
+                '${userModel.countryCode} ${userModel.phoneNumber}',
+                style: TextStyle(color: brightness == Brightness.dark ? Colors.white : Colors.black),
+              ),
+            ),
+            currentAccountPicture: userModel.photoUrl.isNotEmpty
+                ? CircleAvatar(
+                    backgroundImage: NetworkImage(userModel.photoUrl),
+                  )
+                : const CircleAvatar(
+                    child: Icon(Icons.person),
+                  ),
+          ),
+          ListTile(
+            leading: const Icon(Icons.home),
+            title: const Text('Accueil'),
+            onTap: () {
+              // Naviguer vers la page d'accueil
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.account_balance_wallet),
+            title: const Text('Portefeuille'),
+            onTap: () {
+              // Naviguer vers la page du portefeuille
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.history),
+            title: const Text('Historique'),
+            onTap: () {
+              // Naviguer vers la page d'historique
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.settings),
+            title: const Text('Paramètres'),
+            onTap: () {
+              // Naviguer vers la page des paramètres
+            },
+          ),
+          // Autres éléments du drawer
+          SwitchListTile(
+            title: Text(_isDarkMode ? 'Mode clair' : 'Mode sombre'),
+            value: _isDarkMode,
+            onChanged: (bool value) {
+              setState(() {
+                _isDarkMode = value;
+                // Appliquer le mode sombre/clair
+              });
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.logout),
+            title: const Text('Déconnexion'),
+            onTap: () {
+              userModel.logout();
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const WelcomeScreen()),
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
